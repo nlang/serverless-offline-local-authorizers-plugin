@@ -1,0 +1,10 @@
+{
+  "extends": "tslint:recommended",
+  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+  "rules": {
+    "no-console": false,
+    "max-line-length": [150],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
+  }
+}
