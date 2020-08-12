@@ -6,9 +6,9 @@ Run:
 
 Test:
 
-`GET http://localhost:3000/allow` => `HELLO WORLD`
+`GET http://localhost:3000/dev/allow` => `HELLO WORLD`
 
-`GET http://localhost:3000/deny` => 
+`GET http://localhost:3000/dev/deny` => 
 ```
 {
  statusCode: 403,

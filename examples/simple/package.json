@@ -5,9 +5,9 @@
     "@types/aws-lambda": "^8.10.56",
     "@types/node": "^10.17.26",
     "aws-sdk": "^2.699.0",
-    "serverless": "^1.73.1",
-    "serverless-offline": "^5.12.1",
-    "serverless-offline-local-authorizers-plugin": "^1.0.0"
+    "serverless": "^1.78.1",
+    "serverless-offline": "^6.5.0",
+    "serverless-offline-local-authorizers-plugin": "^1.0.2"
   },
   "author": "Nicolai Lang <hi@nlang.de>",
   "license": "MIT"
