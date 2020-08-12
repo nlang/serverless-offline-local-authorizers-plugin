@@ -1,0 +1,43 @@
+frameworkVersion: ">=1.1.0 <2.0.0"
+service:
+  name: serverless-offline-local-authorizers-examples-simple
+
+plugins:
+  - serverless-offline-local-authorizers-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  apiName: ${self:service.name}
+  runtime: nodejs12.x
+  endpointType: regional
+
+  environment:
+    SERVICE_NAME: ${self:service.name}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+
+functions:
+
+  testFunction:
+    memorySize: 128
+    timeout: 3
+    handler: src/TestApi.handleRead
+    events:
+      - http:
+          path: /allow
+          method: GET
+          authorizer:
+            type: CUSTOM
+            authorizerId: "XXX"
+            localAuthorizer:
+              name: "testAuthFnAllow"
+              type: "request"
+      - http:
+          path: /deny
+          method: GET
+          authorizer:
+            type: CUSTOM
+            authorizerId: "XXX"
+            localAuthorizer:
+              name: "testAuthFnDeny"
+              type: "request"
