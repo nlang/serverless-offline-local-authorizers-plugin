@@ -7,7 +7,7 @@
     "aws-sdk": "^2.699.0",
     "serverless": "^1.78.1",
     "serverless-offline": "^6.5.0",
-    "serverless-offline-local-authorizers-plugin": "^1.0.2"
+    "serverless-offline-local-authorizers-plugin": "file:../.."
   },
   "author": "Nicolai Lang <hi@nlang.de>",
   "license": "MIT"

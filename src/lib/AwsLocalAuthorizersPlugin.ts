@@ -3,7 +3,7 @@ import {IServerlessOptions, Serverless} from "./Serverless";
 export class AwsLocalAuthorizerPlugin {
 
     public hooks: { [key: string]: () => void };
-    public  commands: { [key: string]: any };
+    public commands: { [key: string]: any };
 
     constructor(private serverless: Serverless, private options: IServerlessOptions) {
 
@@ -57,16 +57,18 @@ export class AwsLocalAuthorizerPlugin {
                         localAuthorizerDef = { name: localAuthorizerDef };
                     }
 
-                    if (localAuthorizerDef && localAuthorizers[localAuthorizerDef.name]) {
-                        const mockFnName = localAuthorizers[localAuthorizerDef.name];
-                        http.authorizer = {
-                            name: mockFnName,
-                            type: localAuthorizerDef.type || "token",
-                        };
-                    } else {
-                        this.serverless.cli.log(`Invlalid or unknown local authorizer '${JSON.stringify(localAuthorizerDef)}'`,
-                            "serverless-offline-local-authorizers-plugin",
-                            { color: "yellow" });
+                    if (localAuthorizerDef) {
+                        if (localAuthorizers[localAuthorizerDef.name]) {
+                            const mockFnName = localAuthorizers[localAuthorizerDef.name];
+                            http.authorizer = {
+                                name: mockFnName,
+                                type: localAuthorizerDef.type || "token",
+                            };
+                        } else {
+                            this.serverless.cli.log(`Invalid or unknown local authorizer '${JSON.stringify(localAuthorizerDef)}'`,
+                                "serverless-offline-local-authorizers-plugin",
+                                { color: "yellow" });
+                        }
                     }
                 }
             }

@@ -18,6 +18,15 @@ provider:
 
 functions:
 
+  publicFunction:
+    memorySize: 128
+    timeout: 3
+    handler: src/TestApi.handleRead
+    events:
+      - http:
+          path: /public
+          method: GET
+
   testFunction:
     memorySize: 128
     timeout: 3
