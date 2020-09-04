@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.56",
-    "@types/node": "^10.17.26",
-    "aws-sdk": "^2.699.0",
-    "serverless": "^1.78.1",
-    "serverless-offline": "^6.5.0",
+    "@types/node": "^10.17.29",
+    "aws-sdk": "^2.746.0",
+    "serverless": "^1.81.1",
+    "serverless-offline": "^6.7.0",
     "serverless-offline-local-authorizers-plugin": "file:../.."
   },
   "author": "Nicolai Lang <hi@nlang.de>",
