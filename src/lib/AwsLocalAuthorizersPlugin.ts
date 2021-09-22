@@ -95,6 +95,10 @@ export class AwsLocalAuthorizerPlugin {
                 handler: "local-authorizers." + authorizerName,
                 events: [],
                 name: `${this.serverless.service.service}-${this.options.stage}-${authorizerName}`,
+                package:{
+                    include:['local-authorizers.js'],
+                    exclude:[]
+                } 
             };
             prev[authorizerName] = functionKey;
             return prev;
