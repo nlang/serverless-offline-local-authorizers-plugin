@@ -5,6 +5,7 @@ export interface IServerlessFunction {
     handler: string;
     events?: IServerlessEvent[];
     package?: IServerlessPackage;
+    runtime?: string;
 }
 
 export interface IServerlessAuthorizer {
@@ -22,7 +23,7 @@ export interface IServerlessPackage {
     include: string[];
     exclude: string[];
     artifact?: string;
-    individually?: boolean;
+    individually?: boolean;    
 }
 
 export interface IServerlessPluginManager {
