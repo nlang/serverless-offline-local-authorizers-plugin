@@ -25,6 +25,22 @@ export class AwsLocalAuthorizerPlugin {
             },
         };
 
+        this.serverless.configSchemaHandler.defineFunctionEventProperties('aws', 'http', {
+            type: 'object',
+            properties: {
+                localAuthorizer: {
+                    properties: {
+                        name: { type: 'string' },
+                        type: {
+                            anyOf: ['token', 'cognito_user_pools', 'request', 'aws_iam'].map(
+                              v => ({ type: 'string', regexp: new RegExp(`^${v}$`, 'i').toString() })
+                            ),
+                        },
+                    }
+                },
+            },
+        });
+
         this.hooks = {
             "offline:local-authorizers:applyLocalAuthorizers": () => this.applyLocalAuthorizers(),
             "after:offline:local-authorizers:start": () => this.serverless.pluginManager.run(["offline", "start"]),
