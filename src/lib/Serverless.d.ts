@@ -55,6 +55,8 @@ export declare class Serverless {
     };
 
     public pluginManager: IServerlessPluginManager;
+
+    public configSchemaHandler: IServerlessSchemaHandler;
 }
 
 export interface IServerlessOptions {
@@ -72,3 +74,11 @@ export interface IServerlessEvent {
         authorizer?: string | IServerlessAuthorizer;
     };
 }
+
+export interface IServerlessSchemaHandler {
+    defineFunctionEventProperties: DefineFunctionEventProperties;
+}
+
+export type DefineFunctionEventProperties = (event: string, propName: string, schema: AjvSchema) => void;
+
+export type AjvSchema = object;
