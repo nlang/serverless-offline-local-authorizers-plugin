@@ -4,7 +4,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.56",
     "@types/node": "^10.17.29",
-    "aws-sdk": "^2.747.0",
+    "aws-sdk": "^2.814.0",
     "serverless": "^1.82.0",
     "serverless-offline": "^6.7.0",
     "serverless-offline-local-authorizers-plugin": "^1.0.3"
