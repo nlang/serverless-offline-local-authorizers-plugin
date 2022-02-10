@@ -1,6 +1,5 @@
-frameworkVersion: ">=1.1.0 <2.0.0"
-service:
-  name: serverless-offline-local-authorizers-examples-simple
+frameworkVersion: "2"
+service: "serverless-offline-local-authorizers-examples-simple"
 
 plugins:
   - serverless-offline-local-authorizers-plugin
@@ -38,15 +37,15 @@ functions:
           authorizer:
             type: CUSTOM
             authorizerId: "XXX"
-            localAuthorizer:
-              name: "testAuthFnAllow"
-              type: "request"
+          localAuthorizer:
+            name: "testAuthFnAllow"
+            type: "request"
       - http:
           path: /deny
           method: GET
           authorizer:
             type: CUSTOM
             authorizerId: "XXX"
-            localAuthorizer:
-              name: "testAuthFnDeny"
-              type: "request"
+          localAuthorizer:
+            name: "testAuthFnDeny"
+            type: "request"

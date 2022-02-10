@@ -67,9 +67,9 @@ functions:
           authorizer:
             type: CUSTOM
             authorizerId: abcjfk
-            localAuthorizer:
-              name: "mylocalAuthProxyFn"
-              type: "request"
+        localAuthorizer:
+          name: "mylocalAuthProxyFn"
+          type: "request"
 
 ```
 
