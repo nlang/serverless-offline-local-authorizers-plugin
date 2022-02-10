@@ -11,6 +11,6 @@
   "author": "Nicolai Lang <hi@nlang.de>",
   "license": "MIT",
   "dependencies": {
-    "serverless-offline-local-authorizers-plugin": "^1.1.0"
+    "serverless-offline-local-authorizers-plugin": "^1.1.1"
   }
 }
