@@ -29,6 +29,7 @@ export class AwsLocalAuthorizerPlugin {
             type: 'object',
             properties: {
                 localAuthorizer: {
+                    type: 'object',
                     properties: {
                         name: { type: 'string' },
                         type: {
