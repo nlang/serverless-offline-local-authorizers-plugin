@@ -26,11 +26,11 @@ export class AwsLocalAuthorizerPlugin {
         };
 
         this.serverless.configSchemaHandler.defineFunctionEventProperties('aws', 'http', {
-            type: 'object',
             properties: {
                 localAuthorizer: {
+                    type: "object",
                     properties: {
-                        name: { type: 'string' },
+                        name: { type: "string" },
                         type: {
                             anyOf: ['token', 'cognito_user_pools', 'request', 'aws_iam'].map(
                               v => ({ type: 'string', regexp: new RegExp(`^${v}$`, 'i').toString() })
@@ -114,7 +114,7 @@ export class AwsLocalAuthorizerPlugin {
                     include:['local-authorizers.js'],
                     exclude:[]
                 },
-                runtime: "nodejs12.x" 
+                runtime: "nodejs12.x"
             };
             prev[authorizerName] = functionKey;
             return prev;

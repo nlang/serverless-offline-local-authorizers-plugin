@@ -12,6 +12,8 @@ are added dynamically in a way they can be called by `serverless-offline` but do
 deployment and your shared authorizer functions. This helps when you have shared API Gateway authorizers
 and developing and testing locally with `serverless-offline`.
 
+> :warning: **If you are using this plugin and get schema validation errors**: Please check indentation of `localAuthorizer:` config property! See example below...
+
 ## Installation
 
 Installing using npm:

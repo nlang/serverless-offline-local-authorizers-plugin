@@ -1,5 +1,7 @@
-frameworkVersion: "2"
+frameworkVersion: "3"
 service: "serverless-offline-local-authorizers-examples-simple"
+
+configValidationMode: warn
 
 plugins:
   - serverless-offline-local-authorizers-plugin
@@ -7,12 +9,10 @@ plugins:
 
 provider:
   name: aws
-  apiName: ${self:service.name}
   runtime: nodejs12.x
   endpointType: regional
 
   environment:
-    SERVICE_NAME: ${self:service.name}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
 
 functions:
