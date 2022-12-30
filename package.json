@@ -4,6 +4,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "tsc": "./node_modules/typescript/bin/tsc",
+    "install": "npm install",
     "postinstall": "npm run tsc"
   },
   "files": [
