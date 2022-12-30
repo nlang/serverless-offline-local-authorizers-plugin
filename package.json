@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "npx tsc",
-    "prepare": "npx tsc"
+    "install": "npx tsc"
   },
   "files": [
     "dist",
