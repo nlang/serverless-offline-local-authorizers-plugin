@@ -24,7 +24,7 @@ npm i serverless-offline-local-authorizers-plugin --save-dev
 
 ## Usage
 
-*Step 1:* Define your authorizer functions in a file called `local-authorizers.js` and put it into your
+*Step 1:* Define your authorizer functions in a file of your choice (.js, .mjs, .ts and others) and later you will inform the path and name or file default called `local-authorizers.js` and put it into your
 project root (that's where your `serverless.yml` lives).
 
 If you want the local function to call your deployed shared authorizer it could look something
@@ -71,6 +71,7 @@ functions:
             authorizerId: abcjfk
           localAuthorizer:
             name: "mylocalAuthProxyFn"
+            pathFile: "local-authorizers.js" # Optional
             type: "request"
 
 ```

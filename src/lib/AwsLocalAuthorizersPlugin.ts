@@ -1,9 +1,14 @@
 import {IServerlessOptions, Serverless} from "./Serverless";
 
+interface Handler {
+    name: string,
+    filePath?: string
+}
 export class AwsLocalAuthorizerPlugin {
 
     public hooks: { [key: string]: () => void };
     public commands: { [key: string]: any };
+    private handlers: Handler[] = [];
 
     constructor(private serverless: Serverless, private options: IServerlessOptions) {
 
@@ -36,6 +41,7 @@ export class AwsLocalAuthorizerPlugin {
                               v => ({ type: 'string', regexp: new RegExp(`^${v}$`, 'i').toString() })
                             ),
                         },
+                        filePath: { type: "string" },
                     }
                 },
             },
@@ -48,13 +54,6 @@ export class AwsLocalAuthorizerPlugin {
     }
 
     private async applyLocalAuthorizers(): Promise<any> {
-
-        const localAuthorizers = this.appendLocalAuthorizers();
-        if (!localAuthorizers || !Object.keys(localAuthorizers).length) {
-            this.serverless.cli.log(`No local authorizers found.`, "serverless-offline-local-authorizers-plugin", { color: "yellow" });
-            return;
-        }
-
         const functions = this.serverless.service.functions;
         for (const functionName of Object.keys(functions)) {
 
@@ -74,50 +73,48 @@ export class AwsLocalAuthorizerPlugin {
                     }
 
                     if (localAuthorizerDef) {
-                        if (localAuthorizers[localAuthorizerDef.name]) {
-                            const mockFnName = localAuthorizers[localAuthorizerDef.name];
+                            const mockFnName = localAuthorizerDef.name;
+                            console.log('mock', `$__LOCAL_AUTHORIZER_${mockFnName}`)
                             http.authorizer = {
-                                name: mockFnName,
+                                name: `$__LOCAL_AUTHORIZER_${mockFnName}`,
                                 type: localAuthorizerDef.type || "token",
                             };
-                        } else {
-                            this.serverless.cli.log(`Invalid or unknown local authorizer '${JSON.stringify(localAuthorizerDef)}'`,
-                                "serverless-offline-local-authorizers-plugin",
-                                { color: "yellow" });
-                        }
+                            this.registerHandler(localAuthorizerDef);
                     }
                 }
             }
         }
+
+        
+        this.appendLocalAuthorizers();
     }
 
-    private appendLocalAuthorizers(): { [authorizerName: string]: string } {
-
-        const authorizersFile = `${this.serverless.config.servicePath}/local-authorizers.js`;
-        let authorizers = {};
-        try {
-            authorizers = require(authorizersFile);
-        } catch (err) {
-            this.serverless.cli.log(`Unable to load local authorizers from ${authorizersFile}`, "serverless-offline-local-authorizers-plugin", { color: "red" });
-            return null;
+    private registerHandler(handler: Handler) {
+        if (!handler.filePath) {
+            handler.filePath = 'local-authorizers.js'
         }
 
-        return Object.keys(authorizers).reduce((prev, authorizerName) => {
-            const functionKey = `$__LOCAL_AUTHORIZER_${authorizerName}`;
+        const exists = this.handlers.find(item => item.name === handler.name);
+        if (!exists) {
+            this.handlers.push(handler);
+        }
+    }
+
+    private appendLocalAuthorizers() {
+        this.handlers.forEach(handler => {
+            const { name, filePath } = handler;
+            const functionKey = `$__LOCAL_AUTHORIZER_${name}`;
             this.serverless.service.functions[functionKey] = {
                 memorySize: 256,
                 timeout: 30,
-                handler: "local-authorizers." + authorizerName,
+                handler: `${filePath.split('.')[0]}.${name}`,
                 events: [],
-                name: `${this.serverless.service.service}-${this.options.stage}-${authorizerName}`,
+                name: `${this.serverless.service.service}-${this.options.stage}-authorizer${name}`,
                 package:{
-                    include:['local-authorizers.js'],
+                    include:[filePath],
                     exclude:[]
                 },
-                runtime: "nodejs12.x"
             };
-            prev[authorizerName] = functionKey;
-            return prev;
-        }, {});
+        })
     }
 }
